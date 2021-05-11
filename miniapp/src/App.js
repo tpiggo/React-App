@@ -1,11 +1,13 @@
 import React from 'react'
 import Header from './components/Header';
 import Home from './components/Home';
+import Footer from './components/Footer';
 import Features from './components/Features';
 import Pricing from './components/Pricing';
 import BlogHome from './components/BlogHome';
 import { Route } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
+import { faInstagram, faFacebook, faReddit , faTwitter} from '@fortawesome/free-brands-svg-icons';
 
 /**
  * The main application
@@ -45,6 +47,41 @@ class App extends React.Component {
                 component: LoginForm
             },
         ]
+
+        this.footerInfo = {
+            right: [
+                {
+                    icon: faFacebook,
+                    link:  "https://facebook.com"
+                },
+                {
+                    icon: faInstagram,
+                    link:  "https://instagram.com"
+                },
+                {
+                    icon: faReddit,
+                    link:  "https://reddit.com"
+                },
+                {
+                    icon: faTwitter,
+                    link:  "https://twitter.com"
+                }
+            ],
+            left: [
+                {
+                    value: "Our RSS feed",
+                    component: null
+                },
+                {
+                    value: "Customer Support",
+                    component: null
+                },
+                {
+                    value: "Contact Us",
+                    component: null
+                },
+            ]
+        };
     }
 
 
@@ -68,6 +105,7 @@ class App extends React.Component {
             <div>
                 <Header links={this.links} handleClick={this.handleNavClick} current={this.state.current} keys={i}/>
                 {routes}
+                <Footer icons={this.footerInfo.right} btns={this.footerInfo.left}/>
             </div>
             )
     }

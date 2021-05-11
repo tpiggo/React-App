@@ -18,7 +18,7 @@ const Button = styled.button`
     border: 0;
     font-size: 0.85rem;
     border-radius: 0.375rem;
-    padding: 0.5rem 1.25rem;
+    padding: 0.5rem 1rem;
     transition: background-color 0.25s ease-in;
 
     &:not(:last-of-type) {

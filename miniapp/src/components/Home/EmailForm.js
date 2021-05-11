@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
+
+// Styled components for easy management.
 const Form = styled.form`
     display: flex;
     flex-direction: row;
