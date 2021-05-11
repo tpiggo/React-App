@@ -42,7 +42,6 @@ class Note extends React.Component {
                 <textarea ref="newText"></textarea>
                 <button onClick = {this.save}>Save</button>
             </div>
-            
         )
     }
 
