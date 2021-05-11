@@ -41,6 +41,7 @@ const RightBiLine = styled.p`
 `
 
 const Body = styled.p`
+    margin: 0;
     justify-content: right;
     width: 100%;
 `
@@ -61,7 +62,7 @@ const Blog = ({name, date, title, text}) => (
                 </RightBiLine>
             </BiLine>
             <Body>
-                {text}
+                {text.split('\n').map(i => (<p>{i}</p>)) } 
             </Body>
         </Wrapper>
     </Component>

@@ -1,3 +1,4 @@
 button:disabled.active {
     background-color: red;
+    color: white;
 }

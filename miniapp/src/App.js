@@ -15,7 +15,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-               current: window.location.pathname
+            current: window.location.pathname
         }
 
         this.links = [
@@ -58,7 +58,6 @@ class App extends React.Component {
 
     render() {
         let i = 0;
-        console.log(this.state.current)
         let routes = this.links.map(({link, name, component}) =>{
             if (link === "/")
                 return <Route key={i++} exact path={link} component={component}/>
