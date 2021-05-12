@@ -1,5 +1,5 @@
 # React-App
-Simple react app with draggable components!
+Two react apps: Draggable and a full web application with routing!
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
