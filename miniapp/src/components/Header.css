@@ -1,4 +1,8 @@
-button:disabled.active {
+button.active {
     background-color: red;
     color: white;
+}
+
+button.active:hover {
+    background-color: red;
 }

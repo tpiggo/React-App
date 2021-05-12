@@ -3,7 +3,9 @@ import Header from './components/Header';
 import Home from './components/Home';
 import Footer from './components/Footer';
 import Features from './components/Features';
-import Pricing from './components/Pricing';
+import GettingStarted from './components/Documentation/GettingStarted';
+import ProFeatures from './components/Documentation/ProFeatures';
+import Developers from './components/Documentation/Developers';
 import BlogHome from './components/BlogHome';
 import { Route } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
@@ -32,9 +34,25 @@ class App extends React.Component {
                 component: Features
             },
             {
-                link: "/pricing",
-                name: "Pricing",
-                component: Pricing
+                link: "/documentation",
+                name: "Documentation",
+                subcategories: [
+                    {
+                        link: "/getting-started",
+                        name: "Getting Started",
+                        component: GettingStarted
+                    },
+                    {
+                        link: "/pro-features",
+                        name: "Pro Features",
+                        component: ProFeatures
+                    },
+                    {
+                        link: "/developers",
+                        name: "Developers",
+                        component: Developers
+                    }
+                ]
             },
             {
                 link: "/blog",
@@ -90,17 +108,22 @@ class App extends React.Component {
      * @param {Event} event 
      */
     handleNavClick = (event, data) => {
+        console.log(event)
         this.setState({current: data});
     }
 
     render() {
         let i = 0;
-        let routes = this.links.map(({link, name, component}) =>{
+        let routes = this.links.map(({link, name, component, subcategories}) =>{
+            if (link === '/documentation')
+                return subcategories.map(({link, component}) => (
+                    <Route key={i++} path={link} component={component}/>
+                ));
             if (link === "/")
                 return <Route key={i++} exact path={link} component={component}/>
             return <Route key={i++} path={link} component={component}/>
         });
-
+        console.log(this.state.current);
         return (
             <div>
                 <Header links={this.links} handleClick={this.handleNavClick} current={this.state.current} keys={i}/>
