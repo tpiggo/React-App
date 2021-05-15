@@ -1,7 +1,15 @@
 # React-App
 Two react apps: Draggable and a full web application with routing!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Miniapp
+The mini app is a full stack web application where you can talk with your friends in real time and also create hero todo lists whether you are logged in or out.
+When logging in, a user space becomes available where the users can instant message each other. Web sockets are used!
+
+## Draggable
+Small React Application where Draggable Components are used in order to create sticky notes. The notes are randomly generated around the DOM and the user can interact
+with them by dragging them to the desired location on the screen. 
+
+
 
 ## Available Scripts
 
