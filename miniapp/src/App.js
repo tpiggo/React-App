@@ -8,8 +8,8 @@ import ProFeatures from './components/Documentation/ProFeatures';
 import Developers from './components/Documentation/Developers';
 import BlogHome from './components/BlogHome';
 import { Route } from 'react-router-dom';
-import LoginForm from './components/LoginForm';
 import { faInstagram, faFacebook, faReddit , faTwitter} from '@fortawesome/free-brands-svg-icons';
+import Login from './components/Login';
 
 /**
  * The main application
@@ -21,7 +21,6 @@ class App extends React.Component {
         this.state = {
             current: window.location.pathname
         }
-
         this.links = [
             {
                 link: "/",
@@ -62,8 +61,8 @@ class App extends React.Component {
             {
                 link: "/login",
                 name:  "Login",
-                component: LoginForm
-            },
+                component: Login
+            }
         ]
 
         this.footerInfo = {
@@ -102,18 +101,21 @@ class App extends React.Component {
         };
     }
 
-
     /**
      * Gets the ents and handles it.
      * @param {Event} event 
      */
     handleNavClick = (event, data) => {
-        console.log(event)
         this.setState({current: data});
     }
 
+    /**
+     * Creates the main React Components 
+     * @returns React component which can be rendered.
+     */
     render() {
         let i = 0;
+        // filter the useless components out
         let routes = this.links.map(({link, name, component, subcategories}) =>{
             if (link === '/documentation')
                 return subcategories.map(({link, component}) => (
@@ -121,9 +123,11 @@ class App extends React.Component {
                 ));
             if (link === "/")
                 return <Route key={i++} exact path={link} component={component}/>
+            else if (link === '/login') {
+                return <Route key={i++} exact path={link} component={() => component({handleLogin: this.handleLogIn})}/>
+            }
             return <Route key={i++} path={link} component={component}/>
         });
-        console.log(this.state.current);
         return (
             <div>
                 <Header links={this.links} handleClick={this.handleNavClick} current={this.state.current} keys={i}/>

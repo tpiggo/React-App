@@ -100,8 +100,8 @@ function HoverDropEl(props) {
             {isShown && (
                 <DropdownContainer 
                     key={"dropdown" + i++} 
-                    onMouseEnter={() => {console.log("Entering ddCont"); setIsShown(true)}}
-                    onMouseLeave={() => {console.log("leaving ddCont"); setIsShown(false)}}>
+                    onMouseEnter={() => setIsShown(true)}
+                    onMouseLeave={() => setIsShown(false)}>
                     {props.elements}
                 </DropdownContainer>
                 )}
@@ -112,10 +112,19 @@ function HoverDropEl(props) {
 
 /**
  * 
- * @param {{links: Array<{name: String, link: String, component: React.Component, subcategories?: Array}>, handleClick: Function, current: String, keys: Number}} 
+ * @param {{links: Array<{
+ *              name: String, 
+ *              link: String, 
+ *              component: React.Component, 
+ *              subcategories?: Array}>,
+ *          handleClick: Function, 
+ *          accessProtected: Boolean, 
+ *          current: String, 
+ *          keys: Number
+ *      }} 
  * @returns React container for the header
  */
-const Header = ({links, handleClick, current, keys}) => {    
+const Header = ({links, handleClick, accessProtected, current, keys}) => {    
     let buttons = links.map(({name, link, component, subcategories}) => {
         if (component === undefined)
         {
@@ -135,7 +144,6 @@ const Header = ({links, handleClick, current, keys}) => {
             <Button link={link} key={keys++} className={current===link?"active":""}>{name}</Button>
         )
     });
-    console.log(buttons)
     let buttonLinks = buttons.map(button =>{
         if (button.props.link === undefined)
         {

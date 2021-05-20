@@ -26,4 +26,4 @@ class Appuser(db.Model):
         self.upass = hashed.decode('utf-8')
 
     def verify_password(self, password: str):
-        return bcrypt.checkpw(password.encode(), self.upass.encode('utf-8'))
+        return bcrypt.checkpw(password.encode(), self.upass.encode())

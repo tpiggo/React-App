@@ -30,16 +30,20 @@ const Top = styled.div`
 `
 
 
-
-const Login = () => (
-<Component>
-    <Wrapper>
-        <Top>
-            Login
-        </Top>
-        <LoginForm/>
-    </Wrapper>
-</Component>
+/**
+ * Creates the login form and passes the Application login handler to the prop to maintain state
+ * @param {{handleLogin: Function}}  
+ * @returns 
+ */
+const Login = ({handleLogin}) => (
+    <Component>
+        <Wrapper>
+            <Top>
+                Login
+            </Top>
+            <LoginForm handleLogin={handleLogin}/>
+        </Wrapper>
+    </Component>
 )
 
 export default Login;

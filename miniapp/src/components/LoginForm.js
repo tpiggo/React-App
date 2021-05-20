@@ -26,7 +26,14 @@ const Input = styled.input`
 const Submit = styled.button`
     margin: auto;
 `
-const handleSubmit = (event) => {
+
+/**
+ * Handling the submit request on login. No longer works! We are moving this functionality to another app!
+ * @param {Event} event 
+ * @param {Function} handleLogin 
+ * @returns 
+ */
+const handleSubmit = (event, handleLogin) => {
     event.preventDefault();
     console.log(event.target);
     let username = document.getElementById('login-username').value;
@@ -44,40 +51,40 @@ const handleSubmit = (event) => {
         username: username,
         password: password
     }
-    let response = new Promise((resolve, reject) => {
-        let xml = new XMLHttpRequest();
-        xml.open("POST", "http://localhost:5000/login");
-        xml.onload = function () {
-            if (this.status >= 200 && this.status < 300) {
-                resolve(JSON.parse(xml.response));
-            } else {
-                reject(JSON.parse({
-                    status: this.status,
-                    statusText: xml.statusText
-                }))
-            }
-        };
-        // On an error.
-        xml.onerror = function () {
-            reject(JSON.parse({
-                status: this.status,
-                statusText: xml.statusText
-            }))
+    /**
+     * Creating the login request here.
+     */
+    fetch('/login', {
+        credentials: 'include',
+        method: 'POST',
+        body:  JSON.stringify(data),
+        headers: {
+            "Content-Type" : "application/json"
         }
-        xml.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        xml.send(JSON.stringify(data));
-    });
-
-    response.then(response => {
-        console.log(response);
-    }).catch(error => {
-        console.error(error);
-    });
+    })
+    .then(response => response.json())
+    .then(json => { 
+        console.log("My josn:", json); 
+        if (json.status == 200) {
+            console.log("Success!");
+            localStorage.setItem('__session', json.session);
+            handleLogin(json.session);
+        } else {
+            console.log("ERROR");
+        }
+    })
+    .catch(error => console.log('Authorization failed : ' + error.message));
 }
 
-const LoginForm = () => (
+/**
+ * Creates the login form and passes the Application login handler to the prop to maintain state
+ * @param {{handleLogin: Function}}  
+ * @returns 
+ */
+const LoginForm = ({handleLogin}) => {
+    return (
     <Component>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => handleSubmit(e, handleLogin)}>
             <InnerFormWrap>
                 <Label>Username: </Label>
                 <Input placeholder="Username here" id="login-username"/>
@@ -91,6 +98,6 @@ const LoginForm = () => (
             </InnerFormWrap>
         </form>
     </Component>
-)
+)}
 
 export default LoginForm;
